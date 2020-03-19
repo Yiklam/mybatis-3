@@ -1,11 +1,16 @@
 package com.github.chenqimiao.domain;
 
+import java.io.Serializable;
+
 /**
  * @Auther: chenqimiao
  * @Date: 2020/3/18 17:13
  * @Description:
  */
-public class Role {
+public class Role implements Serializable {
+
+  private static final long serialVersionUID = -3081300947672286908L;
+  
   private long id;
   private String roleName;
   private String note;

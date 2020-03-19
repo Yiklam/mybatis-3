@@ -57,6 +57,7 @@ public abstract class BaseExecutor implements Executor {
   protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads;
   // 本地缓存，面向sqlSession
   // (一个SqlSession对应一个CachingExecutor,一个CachingExecutor对应一个delegate, 而delegate是SimpleExecutor, SimpleExecutor则是BaseExecutor的子类)
+  // 不要轻易去修改本地缓存返回的对象，这里返回的缓存不是副本，与全局缓存不同，本地缓存是被共享的.
   protected PerpetualCache localCache;
   protected PerpetualCache localOutputParameterCache;
   protected Configuration configuration;

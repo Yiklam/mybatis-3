@@ -114,7 +114,9 @@ public class TransactionalCache implements Cache {
 
   private void flushPendingEntries() {
     for (Map.Entry<Object, Object> entry : entriesToAddOnCommit.entrySet()) {
-      // put到全局缓存，默认情况下最内层的delegate是SerializedCache，所以要求value的类型实现Serializable接口
+      // put到全局缓存，默认情况下有一层d的delegate是SerializedCache，所以要求value的类型实现Serializable接口
+      // 另外可以知道缓存下的东西是一个被序列化后的字节数组，而不是原对象，再获取缓存的时候需要反序列化。
+      // 所以全局缓存可以每次返回的都是一个缓存的副本.
       delegate.putObject(entry.getKey(), entry.getValue());
     }
     for (Object entry : entriesMissedInCache) {
