@@ -17,6 +17,15 @@ import org.junit.Test;
  */
 public class MybatisTests {
 
+  /**
+   *
+   * SqlSessionFactoryBuilder(inputStream) 用后即弃-> SqlSessionFactory （application唯一）-> SqlSession(和线程绑定)
+   * -> SqlSession.query -> SqlSession.close
+   * -> SqlSession.getMapper (动态代理) -> Mapper -> Query -> SqlSession.query -> SqlSession.close
+   *
+   * 第二和第三行是两条分岔路
+   */
+
   @Test
   public void test() throws IOException {
     String resource = "mybatis-config.xml";
