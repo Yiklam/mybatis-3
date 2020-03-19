@@ -41,6 +41,7 @@ public final class MappedStatement {
   private StatementType statementType;
   private ResultSetType resultSetType;
   private SqlSource sqlSource;
+  //全局缓存，针对namespace
   private Cache cache;
   private ParameterMap parameterMap;
   private List<ResultMap> resultMaps;

@@ -92,6 +92,7 @@ public class CachingExecutor implements Executor {
   @Override
   public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)
       throws SQLException {
+    //cache是全局缓存，这里可以看出全局缓存一旦开启，本地缓存机制将不再运转
     Cache cache = ms.getCache();
     if (cache != null) {
       flushCacheIfRequired(ms);

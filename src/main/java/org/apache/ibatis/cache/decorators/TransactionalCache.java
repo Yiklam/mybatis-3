@@ -78,6 +78,7 @@ public class TransactionalCache implements Cache {
 
   @Override
   public void putObject(Object key, Object object) {
+    //等到sqlSession被提交的时候进行缓存
     entriesToAddOnCommit.put(key, object);
   }
 
@@ -113,6 +114,7 @@ public class TransactionalCache implements Cache {
 
   private void flushPendingEntries() {
     for (Map.Entry<Object, Object> entry : entriesToAddOnCommit.entrySet()) {
+      // put到全局缓存，默认情况下最内层的delegate是SerializedCache，所以要求value的类型实现Serializable接口
       delegate.putObject(entry.getKey(), entry.getValue());
     }
     for (Object entry : entriesMissedInCache) {

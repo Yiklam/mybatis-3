@@ -28,6 +28,7 @@ public class MybatisTests {
         Role role = roleMapper.getRole(1L);
         System.out.println(role);
         sqlSession.commit();
+        role = roleMapper.getRole(1L);
       }catch (Exception e) {
         // TODO Auto-generated catch block
         sqlSession.rollback();
