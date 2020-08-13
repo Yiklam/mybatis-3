@@ -231,15 +231,20 @@ public class XPathParser {
     // important: this must only be called AFTER common constructor
     try {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      // 安全地处理 xml 资源，防止 denial of service attacks (DOS 拒绝服务攻击)
       factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      // 是否开启 DTD 验证
       factory.setValidating(validation);
-
+      // 是否支持 namespace (用于扩展 xml 语义，在 Spring 中较为常见，如 <util:/> 扩展)
       factory.setNamespaceAware(false);
+      // 忽略 注释
       factory.setIgnoringComments(true);
+      // 忽略 元素内容空格， 仅当处于 validation mode 才会生效
       factory.setIgnoringElementContentWhitespace(false);
+      // 将CDATA节点转换为Text节点
       factory.setCoalescing(false);
+      // expand entity reference nodes
       factory.setExpandEntityReferences(true);
-
       DocumentBuilder builder = factory.newDocumentBuilder();
       builder.setEntityResolver(entityResolver);
       builder.setErrorHandler(new ErrorHandler() {
