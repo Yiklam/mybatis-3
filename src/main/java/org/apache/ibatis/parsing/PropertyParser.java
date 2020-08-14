@@ -76,6 +76,7 @@ public class PropertyParser {
       if (variables != null) {
         String key = content;
         if (enableDefaultValue) {
+          // content 可以配置默认值，如 name:chenqimiao, 如果variables找不到name的value，会将chenqimiao作为默认值返回
           final int separatorIndex = content.indexOf(defaultValueSeparator);
           String defaultValue = null;
           if (separatorIndex >= 0) {
