@@ -33,6 +33,7 @@ public class MybatisTests {
     SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       try {
+        // 通过动态代理，隐藏了一些细节，虽然最终sql的执行还是要被委托到 sqlSession .
         RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
         Role role = roleMapper.getRole(1L);
         System.out.println(role);

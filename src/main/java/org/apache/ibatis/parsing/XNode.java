@@ -411,6 +411,7 @@ public class XNode {
     if (child.getNodeType() == Node.CDATA_SECTION_NODE
         || child.getNodeType() == Node.TEXT_NODE) {
       String data = ((CharacterData) child).getData();
+      // 占位符解析成属性
       data = PropertyParser.parse(data, variables);
       return data;
     }
