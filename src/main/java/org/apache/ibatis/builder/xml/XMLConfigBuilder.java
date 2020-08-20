@@ -103,6 +103,7 @@ public class XMLConfigBuilder extends BaseBuilder {
   private void parseConfiguration(XNode root) {
     try {
       // issue #117 read properties first
+      // properties 用作 Variables, 可用于占位符(${})属性的替换,
       propertiesElement(root.evalNode("properties"));
       Properties settings = settingsAsProperties(root.evalNode("settings"));
       loadCustomVfs(settings);

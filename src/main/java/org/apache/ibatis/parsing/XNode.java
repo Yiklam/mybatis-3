@@ -29,6 +29,8 @@ import org.w3c.dom.NodeList;
 
 /**
  * @author Clinton Begin
+ *
+ * 对 Node 进行解析提升成 XNode , XNode 比 Node 更加完备
  */
 public class XNode {
 
