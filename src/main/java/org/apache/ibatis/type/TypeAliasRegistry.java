@@ -129,9 +129,11 @@ public class TypeAliasRegistry {
     ResolverUtil<Class<?>> resolverUtil = new ResolverUtil<>();
     resolverUtil.find(new ResolverUtil.IsA(superType), packageName);
     Set<Class<? extends Class<?>>> typeSet = resolverUtil.getClasses();
+    // 传入的 superType 为 Object.class ，相当于说扫描指定包名下所有的类.
     for (Class<?> type : typeSet) {
       // Ignore inner classes and interfaces (including package-info.java)
       // Skip also inner classes. See issue #6
+      // 忽略内部类和接口，这些不能作为 DO 出现
       if (!type.isAnonymousClass() && !type.isInterface() && !type.isMemberClass()) {
         registerAlias(type);
       }

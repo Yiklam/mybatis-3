@@ -28,6 +28,7 @@ public class InterceptorChain {
 
   public Object pluginAll(Object target) {
     for (Interceptor interceptor : interceptors) {
+      // 按找注册顺序对 target 进行增强
       target = interceptor.plugin(target);
     }
     return target;

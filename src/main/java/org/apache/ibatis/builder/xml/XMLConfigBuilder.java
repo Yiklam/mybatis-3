@@ -159,6 +159,8 @@ public class XMLConfigBuilder extends BaseBuilder {
   }
 
   private void typeAliasesElement(XNode parent) {
+    // 按定义的顺序进行别名的注册，不允许覆盖，优先级：xml > @Alias 注解 > class.getSimpleName
+    // class.getSimpleName 作为别名是在配置了别名，但没有指定别名的情况下的一种默认兜底操作.
     if (parent != null) {
       for (XNode child : parent.getChildren()) {
         if ("package".equals(child.getName())) {
@@ -189,6 +191,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         Properties properties = child.getChildrenAsProperties();
         Interceptor interceptorInstance = (Interceptor) resolveClass(interceptor).getDeclaredConstructor().newInstance();
         interceptorInstance.setProperties(properties);
+        // 将 xml 中注册的拦截器全部注册到 configuration 的 interceptorChain 中去
         configuration.addInterceptor(interceptorInstance);
       }
     }

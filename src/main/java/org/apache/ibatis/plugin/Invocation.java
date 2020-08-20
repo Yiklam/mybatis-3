@@ -26,7 +26,7 @@ public class Invocation {
   private final Object target;
   private final Method method;
   private final Object[] args;
-
+  // 将 target method args 组装成一个对象, 供拦截器使用
   public Invocation(Object target, Method method, Object[] args) {
     this.target = target;
     this.method = method;

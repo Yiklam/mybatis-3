@@ -41,10 +41,12 @@ public class Plugin implements InvocationHandler {
   }
 
   public static Object wrap(Object target, Interceptor interceptor) {
+    // 解析 @Intercepts 注解
     Map<Class<?>, Set<Method>> signatureMap = getSignatureMap(interceptor);
     Class<?> type = target.getClass();
     Class<?>[] interfaces = getAllInterfaces(type, signatureMap);
     if (interfaces.length > 0) {
+      // 生成动态代理对象
       return Proxy.newProxyInstance(
           type.getClassLoader(),
           interfaces,
@@ -58,6 +60,7 @@ public class Plugin implements InvocationHandler {
     try {
       Set<Method> methods = signatureMap.get(method.getDeclaringClass());
       if (methods != null && methods.contains(method)) {
+        // 如果是指定的类的指定方法，对其进行增强，调用拦截器的 intercept 方法
         return interceptor.intercept(new Invocation(target, method, args));
       }
       return method.invoke(target, args);

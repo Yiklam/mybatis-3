@@ -25,6 +25,7 @@ public interface Interceptor {
   Object intercept(Invocation invocation) throws Throwable;
 
   default Object plugin(Object target) {
+    // 增强 target ，target 可以是 executor ParameterHandler ResultSetHandler StatementHandler，总之是被增强目标对象
     return Plugin.wrap(target, this);
   }
 
