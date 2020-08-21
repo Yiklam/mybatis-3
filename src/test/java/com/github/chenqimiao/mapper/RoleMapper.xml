@@ -13,9 +13,12 @@
     <result column="note" property="note"
       typeHandler="com.github.chenqimiao.handler.MyStringHandler" />
   </resultMap>
-  <select id="getRole" parameterType="long" resultMap="roleMap">
-        select
+  <sql id="plainSelect">
+     select
         id,role_name,note from role where id=#{id}
+  </sql>
+  <select id="getRole" parameterType="long" resultMap="roleMap" >
+       <include refid="plainSelect"/>
     </select>
   <select id="findRole" parameterType="long" resultMap="roleMap">
         select

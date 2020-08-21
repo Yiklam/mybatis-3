@@ -106,18 +106,27 @@ public class XMLConfigBuilder extends BaseBuilder {
       // properties 用作 Variables, 可用于占位符(${})属性的替换,
       propertiesElement(root.evalNode("properties"));
       Properties settings = settingsAsProperties(root.evalNode("settings"));
+      // 框架内资源操作工具类配置
       loadCustomVfs(settings);
+      // 日志实现类配置
       loadCustomLogImpl(settings);
+      // 类型别名，用于定义入参和返回值
       typeAliasesElement(root.evalNode("typeAliases"));
+      // plugin 配置，用于对 mybatis 一些生命周期进行增强
       pluginElement(root.evalNode("plugins"));
+      // 创建结果对象的新实例时，它都会使用一个对象工厂（ObjectFactory）实例来完成实例化工作。
+      // 这里可以自定义对象工厂
       objectFactoryElement(root.evalNode("objectFactory"));
+
       objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));
       reflectorFactoryElement(root.evalNode("reflectorFactory"));
       settingsElement(settings);
       // read it after objectFactory and objectWrapperFactory issue #631
       environmentsElement(root.evalNode("environments"));
       databaseIdProviderElement(root.evalNode("databaseIdProvider"));
+      // 注册自定义的结果集类型转换器
       typeHandlerElement(root.evalNode("typeHandlers"));
+      // 注册 mapper （最常用）
       mapperElement(root.evalNode("mappers"));
     } catch (Exception e) {
       throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);

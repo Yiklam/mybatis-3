@@ -57,6 +57,7 @@ public class XMLMapperBuilder extends BaseBuilder {
 
   private final XPathParser parser;
   private final MapperBuilderAssistant builderAssistant;
+  // sql 模版
   private final Map<String, XNode> sqlFragments;
   private final String resource;
 
