@@ -24,6 +24,9 @@ public class MybatisTests {
    * -> SqlSession.getMapper (动态代理) -> Mapper -> Query -> SqlSession.query -> SqlSession.close
    *
    * 第二和第三行是两条分岔路
+   *
+   * 内部架构:
+   * {Executor:{LocalCache, StatementHandler : {ParameterHandler, ResultHandler}}}
    */
 
   @Test
